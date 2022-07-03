@@ -12,6 +12,7 @@ using namespace cv;
  * 本程序演示了如何使用2D-2D的特征匹配估计相机运动
  * **************************************************/
 
+// 这段应该在头文件里吧
 void find_feature_matches(
   const Mat &img_1, const Mat &img_2,
   std::vector<KeyPoint> &keypoints_1,
@@ -73,12 +74,8 @@ void find_feature_matches(const Mat &img_1, const Mat &img_2,
                           std::vector<DMatch> &matches) {
   //-- 初始化
   Mat descriptors_1, descriptors_2;
-  // used in OpenCV3
   Ptr<FeatureDetector> detector = ORB::create();
   Ptr<DescriptorExtractor> descriptor = ORB::create();
-  // use this if you are in OpenCV2
-  // Ptr<FeatureDetector> detector = FeatureDetector::create ( "ORB" );
-  // Ptr<DescriptorExtractor> descriptor = DescriptorExtractor::create ( "ORB" );
   Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create("BruteForce-Hamming");
   //-- 第一步:检测 Oriented FAST 角点位置
   detector->detect(img_1, keypoints_1);
@@ -94,14 +91,21 @@ void find_feature_matches(const Mat &img_1, const Mat &img_2,
   matcher->match(descriptors_1, descriptors_2, match);
 
   //-- 第四步:匹配点对筛选
-  double min_dist = 10000, max_dist = 0;
+//   double min_dist = 10000, max_dist = 0;
 
   //找出所有匹配之间的最小距离和最大距离, 即是最相似的和最不相似的两组点之间的距离
-  for (int i = 0; i < descriptors_1.rows; i++) {
-    double dist = match[i].distance;
-    if (dist < min_dist) min_dist = dist;
-    if (dist > max_dist) max_dist = dist;
-  }
+//   for (int i = 0; i < descriptors_1.rows; i++) {
+//     double dist = match[i].distance;
+//     if (dist < min_dist) min_dist = dist;
+//     if (dist > max_dist) max_dist = dist;
+//   }
+
+//   printf("-- Max dist : %f \n", max_dist);
+//   printf("-- Min dist : %f \n", min_dist);
+  auto min_max = std::minmax_element(match.begin(), match.end(),
+                                [](const cv::DMatch &m1, const cv::DMatch &m2) { return m1.distance < m2.distance; });
+  double min_dist = min_max.first->distance;
+  double max_dist = min_max.second->distance;
 
   printf("-- Max dist : %f \n", max_dist);
   printf("-- Min dist : %f \n", min_dist);
