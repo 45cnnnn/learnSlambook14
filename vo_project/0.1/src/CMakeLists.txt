@@ -2,7 +2,7 @@ add_library(myslam SHARED
         frame.cpp
         mappoint.cpp
         # map.cpp
-        # camera.cpp
+        camera.cpp
         # config.cpp
         # feature.cpp
         # frontend.cpp
