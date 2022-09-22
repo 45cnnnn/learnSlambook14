@@ -3,6 +3,7 @@
 #include <opencv2/features2d/features2d.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <chrono>
+#include <Eigen/Core>
 
 using std::cout;
 using std::endl;
