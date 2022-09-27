@@ -3,7 +3,7 @@
 
 using namespace std;
 
-string image_file = "/home/yu/ETHz/Robo/slam14/learnSlambook14/ch5/imageBasics/ubuntu.png";
+string image_file = "/home/yu/workspace/learnSlambook14/ch5/imageBasics/ubuntu.png";
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>

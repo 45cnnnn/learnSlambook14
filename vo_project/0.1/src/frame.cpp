@@ -7,7 +7,7 @@ namespace myslam
 
     }
 
-    Frame::Frame( long id, double time_step, SE3 T_c_w, Camera::Ptr camera, Mat color, Mat depth)
+    Frame::Frame( long id, double time_step, SE3<double> T_c_w, Camera::Ptr camera, Mat color, Mat depth)
     : id_(id), time_step_(time_step), T_c_w_(T_c_w), camera_(camera), color_(color), depth_(depth)
     {
 
